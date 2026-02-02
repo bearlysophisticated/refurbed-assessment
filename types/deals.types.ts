@@ -3,4 +3,5 @@ export type Deal = {
   title: string;
   description: string;
   refurbedScore: number;
+  isInSpotlight: boolean;
 }
