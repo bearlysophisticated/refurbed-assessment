@@ -8,8 +8,21 @@ import { Platform } from 'react-native';
 const tintColorLight = '#0a7ea4';
 const tintColorDark = '#fff';
 
-export const Colors = {
+export type ColorPalette = {
+  border: string;
+  card: string;
+  text: string;
+  background: string;
+  tint: string;
+  icon: string;
+  tabIconDefault: string;
+  tabIconSelected: string;
+};
+
+export const Colors: Record<'light' | 'dark', ColorPalette> = {
   light: {
+    border: '#E5E7EB',
+    card: '#f5f5f5',
     text: '#11181C',
     background: '#fff',
     tint: tintColorLight,
@@ -18,6 +31,8 @@ export const Colors = {
     tabIconSelected: tintColorLight,
   },
   dark: {
+    border: '#27272A',
+    card: '#222222',
     text: '#ECEDEE',
     background: '#151718',
     tint: tintColorDark,
@@ -44,10 +59,18 @@ export const Fonts = Platform.select({
     rounded: 'normal',
     mono: 'monospace',
   },
-  web: {
-    sans: "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
-    serif: "Georgia, 'Times New Roman', serif",
-    rounded: "'SF Pro Rounded', 'Hiragino Maru Gothic ProN', Meiryo, 'MS PGothic', sans-serif",
-    mono: "SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-  },
 });
+
+export const Spacing = {
+  s: 8,
+  m: 16,
+  l: 24,
+  xl: 32,
+};
+
+export const Radius = {
+  s: 4,
+  m: 8,
+  l: 12,
+  xl: 16,
+};

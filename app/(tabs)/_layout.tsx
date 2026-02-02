@@ -1,19 +1,18 @@
 import { Tabs } from 'expo-router';
 import React from 'react';
 
-import { HapticTab } from '@/components/haptic-tab';
-import { IconSymbol } from '@/components/ui/icon-symbol';
-import { Colors } from '@/constants/theme';
-import { useColorScheme } from '@/hooks/use-color-scheme';
+import { IconSymbol } from '@/components/atoms/icon-symbol/icon-symbol';
+import { useThemedColorSelection } from "@/hooks/use-themed-color-selection";
+import { HapticTab } from "@/components/atoms/haptic-tab/HapticTab";
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
+  const tabBarActiveTintColor = useThemedColorSelection(palette => palette.tint);
 
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        headerShown: false,
+        tabBarActiveTintColor,
+        // headerShown: false,
         tabBarButton: HapticTab,
       }}>
       <Tabs.Screen
@@ -24,9 +23,9 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="explore"
+        name="deals-spotlight"
         options={{
-          title: 'Explore',
+          title: 'Spotlight',
           tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
         }}
       />
