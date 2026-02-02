@@ -29,6 +29,10 @@ export default function Deal() {
       <Text>{deal.description}</Text>
       <Spacer direction={"vertical"} size={"m"}/>
       <Text>Score: {deal.refurbedScore}</Text>
+      <Spacer direction={"vertical"} size={"m"}/>
+      <Text>Price: ${deal.price}</Text>
+      <Spacer direction={"vertical"} size={"s"}/>
+      <Text>Discount: {deal.discountPercentage}%</Text>
     </ContentContainer>
   );
 }
