@@ -1,11 +1,8 @@
 import React, { createContext, PropsWithChildren, useContext, useEffect, useState } from 'react';
 import { Deal, DealFilter, DealSorting } from '@/types/deals.types';
-import { MOCK_DEALS } from '@/constants/mock-deals';
 import { DealContextValue } from "@/contexts/deals-context/DealContext.types";
-import {
-  DEALS_FILTERING_STRATEGIES,
-  DEALS_SORTING_STRATEGIES
-} from "@/contexts/deals-context/deals-sorting-filter-strategies";
+import { sortAndFilterDeals } from "@/utils/deals-sorting-filter.helper";
+import { MockDealsService } from "@/services/deals-service/MockDealsService";
 
 const DealContext = createContext<DealContextValue | undefined>(undefined);
 
@@ -17,18 +14,17 @@ export function DealProvider({ children }: PropsWithChildren) {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<Error | null>(null);
 
-  const loadDeals = () => {
+  const loadDeals = async () => {
     setLoading(true);
     setError(null);
 
     try {
-      // Simulate async data loading
-      setTimeout(() => {
-        setDeals(MOCK_DEALS);
-        setLoading(false);
-      }, 500);
+      const dealsService = new MockDealsService();
+      const dealsData = await dealsService.fetchDeals()
+      setDeals(dealsData);
     } catch (err) {
       setError(err instanceof Error ? err : new Error('Failed to load deals'));
+    } finally {
       setLoading(false);
     }
   };
@@ -38,21 +34,7 @@ export function DealProvider({ children }: PropsWithChildren) {
   }, []);
 
   useEffect(() => {
-    let manipulatedDeals;
-
-    if (sort === undefined) {
-      manipulatedDeals = [...deals];
-    } else {
-      manipulatedDeals = [...deals].sort(DEALS_SORTING_STRATEGIES[sort]);
-    }
-
-    if (filter !== undefined) {
-      manipulatedDeals = manipulatedDeals.filter(deal => {
-        return DEALS_FILTERING_STRATEGIES[filter.name](deal, filter.value);
-      });
-    }
-
-    setDealsViewData(manipulatedDeals);
+    setDealsViewData(sortAndFilterDeals(deals, sort, filter));
   }, [sort, deals, filter]);
 
   const getDealById = (id: string): Deal | undefined => {

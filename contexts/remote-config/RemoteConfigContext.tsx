@@ -10,20 +10,18 @@ export function RemoteConfigProvider({ children }: PropsWithChildren) {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<Error | null>(null);
 
-  const loadRemoteConfig = () => {
+  const loadRemoteConfig = async () => {
     setLoading(true);
     setError(null);
 
     try {
       const remoteConfigService = new MockRemoteConfigurationService();
-      // Simulate async data loading
-      setTimeout(async () => {
-        const config = await remoteConfigService.getRemoteConfig();
-        setRemoteConfig(config);
-        setLoading(false);
-      }, 200);
+      const config = await remoteConfigService.getRemoteConfig();
+      setRemoteConfig(config);
     } catch (err) {
       setError(err instanceof Error ? err : new Error('Failed to load deals'));
+      setLoading(false);
+    } finally {
       setLoading(false);
     }
   };
