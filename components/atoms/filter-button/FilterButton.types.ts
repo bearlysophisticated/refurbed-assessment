@@ -1,4 +1,3 @@
-export type FilterButtonProps = {
-  title: string;
-  onPress: () => void;
-}
+import { ButtonProps } from "react-native";
+
+export type FilterButtonProps = ButtonProps;

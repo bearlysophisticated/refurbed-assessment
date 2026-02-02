@@ -9,3 +9,8 @@ export type Deal = {
 }
 
 export type DealSorting = 'price-asc' | 'price-desc' | 'score-asc' | 'score-desc';
+export type DealFilterName = 'minimum-score';
+export type DealFilter = {
+  name: DealFilterName;
+  value: number;
+};

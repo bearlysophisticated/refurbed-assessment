@@ -1,8 +1,11 @@
 import React, { createContext, PropsWithChildren, useContext, useEffect, useState } from 'react';
-import { Deal, DealSorting } from '@/types/deals.types';
+import { Deal, DealFilter, DealSorting } from '@/types/deals.types';
 import { MOCK_DEALS } from '@/constants/mock-deals';
 import { DealContextValue } from "@/contexts/deals-context/DealContext.types";
-import { DEALS_SORTING_STRATEGIES } from "@/contexts/deals-context/deals-sorting-strategies";
+import {
+  DEALS_FILTERING_STRATEGIES,
+  DEALS_SORTING_STRATEGIES
+} from "@/contexts/deals-context/deals-sorting-filter-strategies";
 
 const DealContext = createContext<DealContextValue | undefined>(undefined);
 
@@ -10,6 +13,7 @@ export function DealProvider({ children }: PropsWithChildren) {
   const [deals, setDeals] = useState<Deal[]>([]);
   const [dealsViewData, setDealsViewData] = useState<Deal[]>([]);
   const [sort, setSort] = useState<DealSorting | undefined>(undefined);
+  const [filter, setFilter] = useState<DealFilter | undefined>(undefined);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<Error | null>(null);
 
@@ -34,14 +38,22 @@ export function DealProvider({ children }: PropsWithChildren) {
   }, []);
 
   useEffect(() => {
+    let manipulatedDeals;
+
     if (sort === undefined) {
-      setDealsViewData(deals);
-      return;
+      manipulatedDeals = [...deals];
+    } else {
+      manipulatedDeals = [...deals].sort(DEALS_SORTING_STRATEGIES[sort]);
     }
 
-    const sortedDeals = [...deals].sort(DEALS_SORTING_STRATEGIES[sort]);
-    setDealsViewData(sortedDeals);
-  }, [sort, deals]);
+    if (filter !== undefined) {
+      manipulatedDeals = manipulatedDeals.filter(deal => {
+        return DEALS_FILTERING_STRATEGIES[filter.name](deal, filter.value);
+      });
+    }
+
+    setDealsViewData(manipulatedDeals);
+  }, [sort, deals, filter]);
 
   const getDealById = (id: string): Deal | undefined => {
     return deals.find(deal => deal.id === id);
@@ -53,6 +65,7 @@ export function DealProvider({ children }: PropsWithChildren) {
     error,
     getDealById,
     applySorting: setSort,
+    applyFilter: setFilter,
   };
 
   return (

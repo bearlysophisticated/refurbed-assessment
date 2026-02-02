@@ -1,4 +1,4 @@
-import { Deal, DealSorting } from "@/types/deals.types";
+import { Deal, DealFilter, DealSorting } from "@/types/deals.types";
 
 export interface DealContextValue {
   deals: Deal[];
@@ -6,4 +6,5 @@ export interface DealContextValue {
   error: Error | null;
   getDealById: (id: string) => Deal | undefined;
   applySorting: (sort?: DealSorting) => void;
+  applyFilter: (filter?: DealFilter) => void;
 }

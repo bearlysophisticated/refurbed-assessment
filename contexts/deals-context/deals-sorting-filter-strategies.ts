@@ -1,4 +1,4 @@
-import { Deal, DealSorting } from "@/types/deals.types";
+import { Deal, DealFilterName, DealSorting } from "@/types/deals.types";
 
 export const DEALS_SORTING_STRATEGIES: Record<DealSorting, (a: Deal, b: Deal) => number> = {
   'price-asc': (a, b) => a.price - b.price,
@@ -6,3 +6,7 @@ export const DEALS_SORTING_STRATEGIES: Record<DealSorting, (a: Deal, b: Deal) =>
   'score-asc': (a, b) => a.refurbedScore - b.refurbedScore,
   'score-desc': (a, b) => b.refurbedScore - a.refurbedScore,
 };
+
+export const DEALS_FILTERING_STRATEGIES: Record<DealFilterName, (deal: Deal, filterValue: any) => boolean> = {
+  'minimum-score': (deal, minimumScore) => deal.refurbedScore >= minimumScore,
+}
