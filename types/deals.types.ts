@@ -7,3 +7,5 @@ export type Deal = {
   refurbedScore: number;
   isInSpotlight: boolean;
 }
+
+export type DealSorting = 'price-asc' | 'price-desc' | 'score-asc' | 'score-desc';
