@@ -1,6 +1,3 @@
-import { PropsWithChildren } from "react";
-import { StyleProp, ViewStyle } from "react-native";
+import { TouchableOpacityProps } from "react-native";
 
-export type CardProps = {
-  style?: StyleProp<ViewStyle>;
-} & PropsWithChildren;
+export type CardProps = TouchableOpacityProps;

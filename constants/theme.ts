@@ -74,3 +74,5 @@ export const Radius = {
   l: 12,
   xl: 16,
 };
+
+export const TOUCHABLE_OPACITY = 0.5;

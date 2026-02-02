@@ -7,12 +7,13 @@ import { Spacer } from "@/components/atoms/spacer/Spacer";
 const ItemSeparator = () => <Spacer direction={"vertical"} size={"s"} />;
 const ListHeader = () => <Spacer direction={"vertical"} size={"m"} />;
 
-export function DealsListing(props: DealsListingProps) {
+export function DealsListing({ deals }: DealsListingProps) {
   const styles = useDealsListingStyles();
   return <FlatList
     style={styles.list}
     numColumns={2}
-    data={props.deals}
+    data={deals}
+    keyExtractor={item => item.id}
     renderItem={({ item }) => <DealCard deal={item}/>}
     columnWrapperStyle={styles.columnWrapper}
     ItemSeparatorComponent={ItemSeparator}
