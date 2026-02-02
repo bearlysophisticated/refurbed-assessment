@@ -8,9 +8,12 @@ export function DealCard({ deal }: DealCardProps) {
   const styles = useDealCardStyles();
   const router = useRouter();
 
+  const priceLabel = deal.discountPercentage ? `$${deal.price} - ${deal.discountPercentage}% off` : `$${deal.price}`;
+
   return <Card style={styles.container} onPress={() => router.navigate(`/deal/${deal.id}`)}>
     <Text>{deal.title}</Text>
     <Text>{deal.description}</Text>
+    <Text>{priceLabel}</Text>
     <Text>Score: {deal.refurbedScore}</Text>
   </Card>;
 }
