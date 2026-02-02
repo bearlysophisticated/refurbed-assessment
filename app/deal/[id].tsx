@@ -1,25 +1,34 @@
-import { useFocusEffect, useLocalSearchParams, useNavigation } from "expo-router";
+import { useLocalSearchParams, useNavigation } from "expo-router";
 import { useEffect } from "react";
+import { useDealContext } from "@/contexts/deals-context";
+import { Text } from "react-native";
+import { ContentContainer } from "@/components/atoms/content-container/ContentContainer";
+import { Spacer } from "@/components/atoms/spacer/Spacer";
 
 export default function Deal() {
   const navigation = useNavigation();
+  const { getDealById } = useDealContext();
 
   const dealId = useLocalSearchParams<{ id: string }>().id;
-
-  const deal = {
-    id: '1',
-    title: 'Deal 1',
-    description: 'Deal 1 description',
-    imageUrl: 'https://via.placeholder.com/150',
-  };
+  const deal = getDealById(dealId);
 
   useEffect(() => {
+    if (deal) {
       navigation.setOptions({ title: deal.title });
+    }
   }, [deal, navigation]);
 
+  if (!deal) {
+    return <ContentContainer>
+      <Text>Deal not found</Text>
+    </ContentContainer>;
+  }
+
   return (
-    <>
-    {/*  TODO implement */}
-    </>
+    <ContentContainer>
+      <Text>{deal.description}</Text>
+      <Spacer direction={"vertical"} size={"m"}/>
+      <Text>Score: {deal.refurbedScore}</Text>
+    </ContentContainer>
   );
 }

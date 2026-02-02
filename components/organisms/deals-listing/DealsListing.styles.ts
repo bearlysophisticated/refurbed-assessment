@@ -4,7 +4,8 @@ import { Spacing } from "@/constants/theme";
 
 export const useDealsListingStyles = () => useThemedStyles((palette => StyleSheet.create({
   list: {
-    paddingHorizontal: Spacing.s,
+    flex: 1,
+    width: "100%",
   },
   columnWrapper: {
     gap: Spacing.s,

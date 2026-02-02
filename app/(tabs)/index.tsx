@@ -1,32 +1,18 @@
 import { DealsListing } from "@/components/organisms/deals-listing/DealsListing";
+import { useDealContext } from "@/contexts/deals-context";
+import { ContentContainer } from "@/components/atoms/content-container/ContentContainer";
+import { Text } from "react-native";
 
 export default function HomeScreen() {
-  return (
-    <DealsListing deals={[{
-      id: '1',
-      title: 'Deal 1',
-      description: 'Deal 1 description',
-      imageUrl: 'https://via.placeholder.com/150',
-    }, {
-      id: '2',
-      title: 'Deal 2',
-      description: 'Deal 2 description',
-      imageUrl: 'https://via.placeholder.com/150',
-    }, {
-      id: '3',
-      title: 'Deal 3',
-      description: 'Deal 3 description',
-      imageUrl: 'https://via.placeholder.com/150',
-    }, {
-      id: '4',
-      title: 'Deal 4',
-      description: 'Deal 4 description',
-      imageUrl: 'https://via.placeholder.com/150',
-    }, {
-      id: '5',
-      title: 'Deal 5',
-      description: 'Deal 5 description',
-      imageUrl: 'https://via.placeholder.com/150',
-    }]} />
-  );
+  const { deals, loading } = useDealContext();
+
+  if (loading) {
+    return <ContentContainer>
+      <Text>Loading...</Text>
+    </ContentContainer>;
+  }
+
+  return <ContentContainer noVerticalPadding>
+    <DealsListing deals={deals}/>
+  </ContentContainer>;
 }

@@ -11,5 +11,6 @@ export function DealCard({ deal }: DealCardProps) {
   return <Card style={styles.container} onPress={() => router.navigate(`/deal/${deal.id}`)}>
     <Text>{deal.title}</Text>
     <Text>{deal.description}</Text>
+    <Text>Score: {deal.refurbedScore}</Text>
   </Card>;
 }
