@@ -1,5 +1,5 @@
 import { DealsListing } from "@/components/organisms/deals-listing/DealsListing";
-import { useDealContext } from "@/contexts/deals-context";
+import { useDealContext } from "@/contexts/deals-context/DealContext";
 import { ContentContainer } from "@/components/atoms/content-container/ContentContainer";
 import { Text } from "react-native";
 

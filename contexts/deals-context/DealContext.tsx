@@ -1,21 +1,11 @@
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import React, { createContext, PropsWithChildren, useContext, useEffect, useState } from 'react';
 import { Deal } from '@/types/deals.types';
 import { MOCK_DEALS } from '@/constants/mock-deals';
-
-interface DealContextValue {
-  deals: Deal[];
-  loading: boolean;
-  error: Error | null;
-  getDealById: (id: string) => Deal | undefined;
-}
+import { DealContextValue } from "@/contexts/deals-context/DealContext.types";
 
 const DealContext = createContext<DealContextValue | undefined>(undefined);
 
-interface DealProviderProps {
-  children: ReactNode;
-}
-
-export function DealProvider({ children }: DealProviderProps) {
+export function DealProvider({ children }: PropsWithChildren) {
   const [deals, setDeals] = useState<Deal[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<Error | null>(null);

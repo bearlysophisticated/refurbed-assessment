@@ -1,4 +1,4 @@
-import { useDealContext } from "@/contexts/deals-context";
+import { useDealContext } from "@/contexts/deals-context/DealContext";
 import { useMemo } from "react";
 
 export function useDealsInSpotlight() {

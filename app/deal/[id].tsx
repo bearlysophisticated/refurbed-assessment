@@ -1,6 +1,6 @@
 import { useLocalSearchParams, useNavigation } from "expo-router";
 import { useEffect } from "react";
-import { useDealContext } from "@/contexts/deals-context";
+import { useDealContext } from "@/contexts/deals-context/DealContext";
 import { Text } from "react-native";
 import { ContentContainer } from "@/components/atoms/content-container/ContentContainer";
 import { Spacer } from "@/components/atoms/spacer/Spacer";
